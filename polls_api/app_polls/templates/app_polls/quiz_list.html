@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QUIZ list</title>
+</head>
+<body>
+    <h2>
+        Quiz List
+    </h2>
+    <a href="{% url 'user_stats' %}">STATS</a>
+    <hr>
+    {% for quiz in quizzes %}
+        <a href="{% url 'quiz_detail' quiz.pk %}">{{quiz.title}}</a> - {{quiz.finished_at}}
+        <hr>
+    {% endfor %}
+</body>
+</html>

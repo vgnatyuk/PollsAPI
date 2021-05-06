@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ quiz.title }}</title>
+</head>
+<body>
+    <h2>{{ quiz.title }}</h2>
+    <br>
+    <form method="post">
+        {% csrf_token %}
+    {% for question in quiz.get_questions %}
+    {{ question }}
+            <br><hr>
+        {% for answer in question.get_answers %}
+            {% if question.question_type == 'Multi' %}
+                <input type="checkbox" name="{{ question.text }}" value="{{ answer.text }}">{{ answer.text }}
+            {% elif question.question_type == 'Text' %}
+                <textarea name="{{ question.text }}" placeholder="Input answer"></textarea>
+            {% elif question.question_type == 'Single' %}
+                <input type="radio" name="{{ question.text }}" value="{{ answer.text }}">{{ answer.text }}
+            {% endif %}
+
+            <br>
+        {% endfor %}
+        <br>
+    {% endfor %}
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>
